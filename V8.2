@@ -3052,6 +3052,18 @@ function bearlib:MakeWindow(Configs)
         ToggleButton.MouseButton1Click:Connect(function()
             Window:Minimize()
         end)
+        
+        local Flag = Instance.new("ImageLabel")
+        Flag.Name = "VNFlagIcon"
+        Flag.Parent = ToggleButton
+        Flag.BackgroundTransparency = 1
+        Flag.Image = "rbxassetid://120453737619982"
+        Flag.Size = UDim2.fromOffset(28, 18)
+        Flag.AnchorPoint = Vector2.new(0.5, 0.5)
+        Flag.Position = UDim2.new(1, -2, 0, 2)
+        Flag.ZIndex = 100
+        Flag.Rotation = 15
+    end)
     
     return Window
 end
