@@ -2321,7 +2321,7 @@ function bearlib:MakeWindow(Configs)
                 }), "Text")
                 
                 local StatsFrame
-                if Online or TotalMembers then
+               --[[ if Online or TotalMembers then
                     StatsFrame = Create("Frame", Card, {
                         Size = UDim2.new(1, -20, 0, 10),
                         Position = UDim2.new(0, 0, 0.54, 0),
@@ -2373,10 +2373,10 @@ function bearlib:MakeWindow(Configs)
                     if Online ~= nil then
                         AddStat(Color3.fromRGB(0, 255, 0), tostring(Online) .. " Online")
                     end
-                    if TotalMembers ~= nil then
-                        AddStat(Color3.fromRGB(88, 101, 242), tostring(TotalMembers) .. " Members")
-                    end
-                end
+                   -- if TotalMembers ~= nil then
+                       -- AddStat(Color3.fromRGB(88, 101, 242), tostring(TotalMembers) .. " Members")
+                   -- end
+                end ]]
                 
                 local Description = InsertTheme(Create("TextLabel", Card, {
                     Size = UDim2.new(1, -50, 0, 10),
@@ -2657,13 +2657,13 @@ function bearlib:MakeWindow(Configs)
                 }), "DarkText")
             end
             
-            if Online and Online > 0 then
-                AddStat(Color3.fromRGB(0, 255, 0), tostring(Online) .. " Online")
-            end
+           -- if Online and Online > 0 then
+               -- AddStat(Color3.fromRGB(0, 255, 0), tostring(Online) .. " Online")
+           -- end
             
-            if TotalMembers and TotalMembers > 0 then
-                AddStat(Color3.fromRGB(88, 101, 242), tostring(TotalMembers) .. " Members")
-            end
+           -- if TotalMembers and TotalMembers > 0 then
+               -- AddStat(Color3.fromRGB(88, 101, 242), tostring(TotalMembers) .. " Members")
+           -- end
             
             local DescLabel = InsertTheme(Create("TextLabel", Card, {
                 Position = UDim2.new(0, 75, 0, 95),
