@@ -757,7 +757,7 @@ function bearlib:MakeWindow(Configs)
         Position = UDim2.new(0, 0, 0.5),
         AnchorPoint = Vector2.new(0, 0.5),
         BackgroundTransparency = 1,
-        Image = "rbxassetid://74531698053145",
+        Image = "rbxassetid://76571437829227",
         ImageColor3 = Theme["Color Text"],
         Name = "MinimizedIcon"
     })
@@ -2422,7 +2422,7 @@ function bearlib:MakeWindow(Configs)
                     Text = "Join",
                     Font = Enum.Font.GothamBold,
                     TextSize = 12,
-                    BackgroundColor3 = Color3.fromRGB(37, 128, 69),
+                    BackgroundColor3 = Color3.fromRGB(0, 191, 255),
                     TextColor3 = Color3.fromRGB(255, 255, 255),
                     ZIndex = 4,
                     TextStrokeTransparency = 0.3,
@@ -2694,7 +2694,7 @@ function bearlib:MakeWindow(Configs)
                 Text = "Follow Tik Tok",
                 Font = Enum.Font.GothamBold,
                 TextSize = 13,
-                BackgroundColor3 = Color3.fromRGB(88, 101, 242),
+                BackgroundColor3 = Color3.fromRGB(0, 191, 255),
                 TextColor3 = Color3.fromRGB(255, 255, 255),
                 ZIndex = 4,
                 TextStrokeTransparency = 0.3,
@@ -3186,7 +3186,7 @@ local function CreateNotification(Icon, Title, Message, Duration)
     IconImage.Size = UDim2.new(1, 0, 1, 0)
     IconImage.BackgroundTransparency = 1
     IconImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    IconImage.Image = Icon or "rbxassetid://74531698053145"
+    IconImage.Image = Icon or "rbxassetid://76571437829227"
     IconImage.ImageColor3 = Color3.fromRGB(255, 255, 255)
     IconImage.ScaleType = Enum.ScaleType.Fit
     IconImage.BorderSizePixel = 0
@@ -3320,7 +3320,7 @@ end
 function bearlib:Notify(Configs)
     local Title = Configs.Title or Configs[1] or "Bear Hub"
     local Message = Configs.Message or Configs[2] or Configs.Text or ""
-    local Icon = Configs.Icon or "rbxassetid://74531698053145"
+    local Icon = Configs.Icon or "rbxassetid://76571437829227"
     local Duration = Configs.Duration or Configs.Time or 5
     
     table.insert(NotificationQueue, {
