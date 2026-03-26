@@ -3318,20 +3318,23 @@ local function ProcessNotificationQueue()
 end
 
 function bearlib:Notify(Configs)
-    local Title = Configs.Title or Configs[1] or "Bear Hub"
-    local Message = Configs.Message or Configs[2] or Configs.Text or ""
+    if not Configs or Configs.Title ~= "Duy Lặc" then 
+        return 
+    end
+
+    local Title = Configs.Title or "Bear Hub"
+    local Message = Configs.Message or ""
     local Icon = Configs.Icon or "rbxassetid://74531698053145"
-    local Duration = Configs.Duration or Configs.Time or 5
-    
+    local Duration = Configs.Duration or 5
+
     table.insert(NotificationQueue, {
         Icon = Icon,
         Title = Title,
         Message = Message,
         Duration = Duration
     })
-    
+
     ProcessNotificationQueue()
-    
     return true
 end
 
@@ -3577,7 +3580,7 @@ task.spawn(function()
     task.wait(2)
     bearlib:Notify({
         Title = "Duy Lặc",
-        Message = "Đang Tải UI Vui Lòng Chờ",
+        Message = "Đang Tải UI(Mẹ Thức Béo)",
         Duration = 10
     })
 end)
