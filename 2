@@ -1,0 +1,83 @@
+local Workspace = game:GetService("Workspace")
+
+local center = Vector3.new(-89.21, 10097.24, 1205.95)
+local size = Vector3.new(39.66, 28.00, 18.72)
+
+local minBound = center - size/2
+local maxBound = center + size/2
+
+local region = Region3.new(minBound, maxBound)
+region = region:ExpandToGrid(4)
+
+local function isProtected(obj)
+    return obj.Name == "Center"
+        or obj.Name == "floor"
+        or obj:FindFirstAncestor("Center")
+        or obj:FindFirstAncestor("floor")
+end
+
+local protectedCFrames = {
+    CFrame.new(-80.1489868, 10085.5498, 1187.86914, 0, 0, -1, 0, -1, 0, -1, 0, 0),
+    CFrame.new(-80.1489868, 10096.9092, 1188.82104, 0, 1, 0, 0, 0, -1, -1, 0, 0),
+    CFrame.new(-99.0820923, 10096.9092, 1188.82104, 0, 1, 0, 0, 0, -1, -1, 0, 0)
+}
+
+local function isExactCFrame(cf1, cf2)
+    local a = {cf1:GetComponents()}
+    local b = {cf2:GetComponents()}
+
+    for i = 1, #a do
+        if a[i] ~= b[i] then
+            return false
+        end
+    end
+    return true
+end
+
+local function isProtectedCFrame(part)
+    if part.Name == "Part" then
+        for _, cf in pairs(protectedCFrames) do
+            if isExactCFrame(part.CFrame, cf) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local partsInRegion = Workspace:FindPartsInRegion3(region, nil, math.huge)
+
+for _, part in pairs(partsInRegion) do
+    if not isProtected(part) and not isProtectedCFrame(part) then
+        part:Destroy()
+    end
+end
+
+for _, obj in pairs(Workspace:GetDescendants()) do
+    if obj:IsA("Model") and not isProtected(obj) then
+        local shouldDestroy = false
+
+        for _, p in pairs(obj:GetDescendants()) do
+            if p:IsA("BasePart") 
+            and not isProtected(p) 
+            and not isProtectedCFrame(p) then
+
+                local minObj = p.Position - p.Size/2
+                local maxObj = p.Position + p.Size/2
+
+                local overlap = (minObj.X <= maxBound.X and maxObj.X >= minBound.X)
+                             and (minObj.Y <= maxBound.Y and maxObj.Y >= minBound.Y)
+                             and (minObj.Z <= maxBound.Z and maxObj.Z >= minBound.Z)
+
+                if overlap then
+                    shouldDestroy = true
+                    break
+                end
+            end
+        end
+
+        if shouldDestroy then
+            obj:Destroy()
+        end
+    end
+end
