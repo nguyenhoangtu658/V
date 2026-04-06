@@ -1,0 +1,68 @@
+local Workspace = game:GetService("Workspace")
+
+local center = Vector3.new(-2723.31, 10101.45, 345.30)
+local size = Vector3.new(42.87, 26.00, 17.59)
+
+local minBound = center - size/2
+local maxBound = center + size/2
+
+local region = Region3.new(minBound, maxBound)
+region = region:ExpandToGrid(8)
+
+local function isProtected(obj)
+    return obj.Name == "Center"
+        or obj.Name == "floor"
+        or obj:FindFirstAncestor("Center")
+        or obj:FindFirstAncestor("floor")
+end
+
+local protectedCFrames = {
+    CFrame.new(-2813.57129, 10107.2861, 332.616211, 0, 0, -1, 0, -1, 0, -1, 0, 0),
+    CFrame.new(-2813.57129, 10118.6455, 333.568115, 0, 1, 0, 0, 0, -1, -1, 0, 0),
+    CFrame.new(-2832.50439, 10118.6455, 333.568115, 0, 1, 0, 0, 0, -1, -1, 0, 0)
+}
+
+local function isExactCFrame(cf1, cf2)
+    local a = {cf1:GetComponents()}
+    local b = {cf2:GetComponents()}
+
+    for i = 1, #a do
+        if a[i] ~= b[i] then
+            return false
+        end
+    end
+    return true
+end
+
+local function isProtectedCFrame(part)
+    if part.Name == "Part" then
+        for _, cf in pairs(protectedCFrames) do
+            if isExactCFrame(part.CFrame, cf) then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+local parts = Workspace:FindPartsInRegion3(region, nil, math.huge)
+
+if #parts == 0 then
+    for _, v in pairs(Workspace:GetDescendants()) do
+        if v:IsA("BasePart") then
+            local pos = v.Position
+
+            if pos.X >= minBound.X and pos.X <= maxBound.X
+            and pos.Y >= minBound.Y and pos.Y <= maxBound.Y
+            and pos.Z >= minBound.Z and pos.Z <= maxBound.Z then
+                table.insert(parts, v)
+            end
+        end
+    end
+end
+
+for _, part in pairs(parts) do
+    if not isProtected(part) and not isProtectedCFrame(part) then
+        part:Destroy()
+    end
+end
