@@ -132,7 +132,6 @@ do
     ClickState = 0
     Num_self = 25
 end
-
 -- Wait for game to load
 repeat
     local loading = plr.PlayerGui:FindFirstChild("Main")
@@ -140,7 +139,13 @@ repeat
     task.wait()
 until game:IsLoaded() and not (loading and loading.Visible)
 
--- World Detection (Optimized)
+-- Lấy UniverseID
+local HttpService = game:GetService("HttpService")
+local UniverseID = HttpService:JSONDecode(
+    game:HttpGet("https://apis.roblox.com/universes/v1/places/"..game.PlaceId.."/universe")
+).universeId
+
+-- World Detection (Chuẩn)
 local placeId = game.PlaceId
 
 if placeId == 2753915549 or placeId == 85211729168715 then
@@ -152,7 +157,8 @@ elseif placeId == 4442272183 or placeId == 79091703265657 then
 elseif placeId == 7449423635 or placeId == 100117331123089 then
     World3 = true
 
-elseif placeId == 994732206 or placeId == 73902483975735 then
+-- Check bằng UniverseID (áp dụng cho toàn bộ BF)
+elseif UniverseID == 994732206 or placeId == 73902483975735 then
     World4 = true
 
 else
@@ -13828,4 +13834,3 @@ task.spawn(function()
         end
     end)
 end)
-
