@@ -7,7 +7,7 @@ local icons = {
 
 local function getIcon(name)
     name = string.lower(tostring(name)):match("^%s*(.-)%s*$")
-    local find = icons["48px"][name]
+    local find = icons["48px"][star]
     if not find then
         local num = tonumber(name)
         if num then
