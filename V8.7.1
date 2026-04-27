@@ -7,7 +7,7 @@ local icons = {
 
 local function getIcon(name)
     name = string.lower(tostring(name)):match("^%s*(.-)%s*$")
-    local find = icons["48px"][star]
+    local find = icons["48px"][name]
     if not find then
         local num = tonumber(name)
         if num then
@@ -364,7 +364,7 @@ function GUI:CreateMain(config)
                 iconImage.ImageRectOffset = iconData.imageRectOffset
             end
         else
-            floatingButton.Text = "🏠"
+            floatingButton.Text = "💎"
         end
 
 
